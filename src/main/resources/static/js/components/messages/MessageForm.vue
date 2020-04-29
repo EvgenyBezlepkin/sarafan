@@ -8,14 +8,8 @@
 
 <script>
 
-    function getIndex(list, id){
-        for (var i = 0; i < list.length; i++){
-            if (list[i].id === id){
-                return i;
-            }
-        }
-        return -1;
-    }
+    import {sendMessage} from '../../pages/util/ws.js'
+
     export default {
         props: ['messagesList', 'editMessageInForm'],
         data: function() {
@@ -25,24 +19,29 @@
             }
         },
         methods: {
-            save: function() {
-                var message = { text: this.text}
+            save() {
+                sendMessage({id: this.id, text: this.text})
+                this.text=''
+                this.id=''
 
-                if (this.id) {
-                    this.$resource("/messages/{id}").update({id: this.id}, {'text':this.text}).then(res => res.json().then(res => {
-                        var index = getIndex(this.messagesList, this.id)
-                        this.messagesList.splice(index, 1, res)
-                        this.text=''
-                    }))
-                } else {
-                    this.$resource("/messages/{id}")
-                        .save({}, message)
-                        .then(result => result.json()
-                            .then(data => {
-                                this.messagesList.push(data)
-                                this.text=''
-                            })
-                        )}
+                // код сохранения через vue-resource
+                // var message = { text: this.text}
+                //
+                // if (this.id) {
+                //     this.$resource("/messages/{id}").update({id: this.id}, {'text':this.text}).then(res => res.json().then(res => {
+                //         var index = getIndex(this.messagesList, this.id)
+                //         this.messagesList.splice(index, 1, res)
+                //         this.text=''
+                //     }))
+                // } else {
+                //     this.$resource("/messages/{id}")
+                //         .save({}, message)
+                //         .then(result => result.json()
+                //             .then(data => {
+                //                 this.messagesList.push(data)
+                //                 this.text=''
+                //             })
+                //         )}
             }
         },
         watch: {

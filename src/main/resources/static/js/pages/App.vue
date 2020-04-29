@@ -7,6 +7,8 @@
 
 <script>
     import MessagesList from 'components/messages/MessagesList.vue'
+    import {addHandler} from 'pages/util/ws.js'
+    import {getIndex} from 'pages/util/collections.js'
     export default {
         components: {
             MessagesList
@@ -15,6 +17,18 @@
             return {
                 messagesPull: messages
             }
+        },
+        created(){
+            addHandler(data => {
+                console.log(messages)
+                let index = getIndex(messages, data.id)
+                console.log(index)
+                if (index > 1) {
+                    messages.splice(index,1,data)
+                } else {
+                    messages.push(data)
+                }
+            })
         }
     }
 </script>
