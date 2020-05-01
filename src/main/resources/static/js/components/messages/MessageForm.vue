@@ -1,8 +1,12 @@
 <template>
-    <div>
-    <input type="text" placeholder="Write something" v-model="text"/>
-    <input type="button" value="Save" v-on:click="save"/>
-    </div>
+    <form>
+        <div class="form-row margin-bottom">
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="Write something" v-model="text"/>
+            </div>
+            <input type="button" value="Save" v-on:click="save" class="btn custom margin"/>
+        </div>
+    </form>
 </template>
 
 
@@ -12,7 +16,7 @@
 
     export default {
         props: ['messagesList', 'editMessageInForm'],
-        data: function() {
+        data: function () {
             return {
                 text: '',
                 id: ''
@@ -21,8 +25,8 @@
         methods: {
             save() {
                 sendMessage({id: this.id, text: this.text})
-                this.text=''
-                this.id=''
+                this.text = ''
+                this.id = ''
 
                 // код сохранения через vue-resource
                 // var message = { text: this.text}
@@ -45,7 +49,7 @@
             }
         },
         watch: {
-            editMessageInForm: function (newVal, oldVal){
+            editMessageInForm: function (newVal, oldVal) {
                 this.text = newVal.text;
                 this.id = newVal.id
             }
@@ -55,5 +59,13 @@
 
 
 <style>
-
+    .custom {
+        color: red
+    }
+    .margin-bottom {
+        margin-bottom: 2.5rem;
+    }
+    .margin {
+        margin: 0 1rem 1rem 1rem;
+    }
 </style>

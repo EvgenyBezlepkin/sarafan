@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <form>
         <message-form v-bind:messagesList="messagesList" v-bind:editMessageInForm="currentMessage"/>
-        <message-row v-for="message in messagesList"
+        <message-row v-for="message in sortedMessages"
                      v-bind:key="message.id"
                      v-bind:currentMessage="message"
                      v-bind:editMessage="editMessage"
                      v-bind:deleteMessage="deleteMessage"
                      v-bind:messagesList="messagesList" />
-    </div>
+    </form>
 </template>
 
 
@@ -25,7 +25,13 @@
                 currentMessage: ''
             }
         },
-
+        computed: {
+            sortedMessages(){
+                let a = this.messagesList.sort((a,b) => (b.id - a.id))
+                console.log(a)
+                return a
+            }
+        },
         methods:{
             editMessage(message){
                 this.currentMessage = message

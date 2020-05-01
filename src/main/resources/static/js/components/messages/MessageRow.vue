@@ -1,16 +1,19 @@
 <template>
-    <div>
-        <i>{{currentMessage.id}} </i> : {{currentMessage.text}}
-        <input type="button" value="Edit" v-on:click="edit"/>
-        <input type="button" value="X" v-on:click="del"/>
+    <div class="form-row">
+        <div class="col-7">
+            <label class="form-control"><i>{{currentMessage.id}} </i> : {{currentMessage.text}}</label>
+        </div>
+        <input type="button" value="Edit" class="btn margin" v-on:click="edit"/>
+        <input type="button" value="X" class="btn margin" v-on:click="del"/>
     </div>
 </template>
 
 
 <script>
     import MessageForm from 'components/messages/MessageForm.vue'
+
     export default {
-        components:{
+        components: {
             MessageForm
         },
         props: ['currentMessage', 'editMessage', 'messagesList', 'deleteMessage'],
@@ -27,5 +30,7 @@
 
 
 <style>
-
+    .margin {
+        margin: 0 1rem 1rem 1rem;
+    }
 </style>
