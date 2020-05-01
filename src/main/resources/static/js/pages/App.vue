@@ -20,10 +20,9 @@
         },
         created(){
             addHandler(data => {
-                console.log(messages)
                 let index = getIndex(messages, data.id)
                 console.log(index)
-                if (index > 1) {
+                if (index != -1) {
                     messages.splice(index,1,data)
                 } else {
                     messages.push(data)

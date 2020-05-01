@@ -46,7 +46,10 @@ public class MessageController {
         messageRepository.delete(message);
     }
 
+    // адрес для маппинга сообщения
+    // метод обработает сообщение и передаст его на адрес брокера
     @MessageMapping("/changeMessage")
+    // адрес брокера
     @SendTo("/topic/activity")
     public Message change (Message message)  {
         return messageRepository.save(message);
